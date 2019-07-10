@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <h1>Game Bot</h1>
+        <div>
+            <input v-model="script" title="Имя скрипта" placeholder="Имя скрипта">
+            <button @click="saveScript">Сохранить скрипт локально</button>
+        </div>
+        <div>
+            <h3>Выберите сайт</h3>
+        </div>
+        <input v-model="url" placeholder="Введите название сайта">
+        <button>Выбрать текущий сайт</button>
+        <hr>
+
+        <div>
+            <h3>Напишите алгоритм работы с сайтом</h3>
+            <ol>
+                <li v-for="item in steps">
+                    <button @click="findAndClick(item)">Выполнить</button>
+                    <!-- <select v-model="item.action" :disabled="run">
+                        <option v-for="action in actions"> {{ action }}</option>
+                    </select> -->
+                    <input v-model="item.target" :disabled="run"> Time <input type="number" v-model="item.time"
+                        :disabled="run"></li>
+            </ol>
+        </div>
+        <button id="test-extension-page" @click="findAndClick(steps[0])">Тестируем доступность
+            страницы</button>
+        <div>
+            <h3>Цикл следующий: </h3>
+            <ol>
+                <li v-for="item in steps">{{ item.action }} >>> {{ item.target }} </li>
+            </ol>
+        </div>
+        <div>
+            <h2>Скрипт работает: {{ run }}</h2>
+            <button @click="toggleScript">{{ run ? 'Выключить' : 'Включить' }} скрипт</button>
+        </div>
+
+        <div>
+            <h3>Логи: </h3>
+            <ul>
+                <li v-for="item in logs">{{ item }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+
+</body>
+
+</html>
